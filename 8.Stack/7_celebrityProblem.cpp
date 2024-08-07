@@ -37,3 +37,23 @@ int findCelebrity(int n) {
 
 
 }
+
+
+int celebrity(vector<vector<int> >& mat){
+        int n = mat.size();
+        int a = 0 , b = n-1;
+        
+        while(a<b){
+            if(mat[a][b])
+                a++;
+            
+            else 
+                b--;
+        }
+        //a is celeb candidate
+        for(int i=0;i<n;i++){
+            if(i!=a && (mat[i][a] == 0 || mat[a][i]))
+                return -1;
+        }
+        return a;
+    }
