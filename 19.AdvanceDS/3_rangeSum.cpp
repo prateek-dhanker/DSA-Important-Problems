@@ -72,3 +72,88 @@ public:
  * obj->update(index,val);
  * int param_2 = obj->sumRange(left,right);
  */
+
+
+
+// update(l, r, val) : Add (val + i) to arr[l + i] where, 0 <= i <= r - l.
+#include <bits/stdc++.h> 
+class NumArray
+{
+public:
+
+    // Initialize here.
+    vector<long long> stree;
+    vector<int> arr;
+    int n;
+    void buildTree(vector<long long> &stree , vector<int> &arr , int index, int s ,int e){
+        if(s>e)
+            return;
+        
+        if(s == e){
+            stree[index] = arr[s]*1LL;
+            return;
+        }
+
+        int mid = (s+e)/2;
+        buildTree(stree , arr , 2*index ,s,mid);
+        buildTree(stree,arr,2*index+1,mid+1,e);
+
+        long long leftVal = stree[2*index] , rightVal = stree[2*index+1];
+
+        stree[index] = leftVal + rightVal;
+    }
+    NumArray(vector<int> &arr, int n)
+    {
+        // Write your code here.
+        this->arr = arr;
+        this->n = n;
+        stree.resize(4*n+1);
+        buildTree(stree,arr , 1 ,0,n-1);
+    }
+
+    // Update operation.
+    void updateUtil(int index,int l,int r,int s,int e,int val){
+        if(r<s || l>e)
+            return;
+        
+        if(s == e){
+            int i = s-l;
+            stree[index] += val+i;
+            return;
+        }
+
+        int mid = (s+e)/2;
+        updateUtil(2*index , l,r,s,mid,val);
+        updateUtil(2*index+1,l,r,mid+1,e,val);
+
+        int leftVal = stree[2*index] , rightVal = stree[2*index+1];
+        stree[index] = leftVal + rightVal;
+    }
+    void update(int l, int r, int val)
+    {
+        // Write your code here.
+        updateUtil(1,l-1,r-1,0,n-1,val);
+    }
+
+    // Return the sum of subarray arr[l..r].
+    long long rangeSumUtil(int index,int l,int r,int s,int e){
+        //non-overlap
+        if(r<s || l>e)
+            return 0;
+        
+        //completeOverlap
+        if(s>=l && e<=r)
+            return stree[index];
+        
+        int mid = (s+e)/2;
+        long long leftVal = rangeSumUtil(2*index , l , r,s,mid);
+        long long rightVal = rangeSumUtil(2*index+1 , l ,r ,mid+1 ,e);
+
+        return leftVal + rightVal;
+    }
+    long long rangeSum(int l, int r)
+    {
+        // Write your code here.
+        return rangeSumUtil(1,l-1,r-1,0,n-1);
+    }
+};

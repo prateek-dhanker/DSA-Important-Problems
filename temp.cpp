@@ -41,4 +41,15 @@ int main() {
     vector<int> numbers = {1,23,156,1650,651,165,32};
     cout<<"Result: " << solution(numbers) << endl;  // Output: 3
     return 0;
-}b 
+}
+
+// ios_base::sync_with_stdio(0);
+// cin.tie(0);
+// cout.tie(0);
+
+//Cyclic Increase
+// i = (i+1)%n;
+//Cyclic Decrease
+// i = (i+n-1)%n;
+//Ceil Divide
+// div = (a+b-1)/b;
