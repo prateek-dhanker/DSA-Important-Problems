@@ -11,7 +11,7 @@ public:
         int op2 = costs[1] + solve(days , costs , i);
        
         int j;
-        for(j=index ; j<days.size() && days[index] + 7 > days[j]; j++);
+        for(j=index ; j<days.size() && days[index] + 30 > days[j]; j++);
         int op3 = costs[2] + solve(days , costs , j);
 
         return min(op1 , min(op2 , op3));
