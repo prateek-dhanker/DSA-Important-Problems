@@ -28,3 +28,22 @@ int main()
 
     return 0;
 }
+
+class Solution {
+public:
+    double myPow(double x, int n) {
+        long long exp = abs(n*1LL);
+
+        double res = 1;
+        while(exp){
+            if(exp&1)
+                res *= x;
+            
+            x *= x;
+            exp = exp>>1;
+        }
+        if(n<0)
+            return 1/res;
+        return res;
+    }
+};
