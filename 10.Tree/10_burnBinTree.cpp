@@ -67,3 +67,44 @@ TreeNode* fillMap(TreeNode* root, int start , map<TreeNode * , TreeNode *> &pare
 
         return infectTree(target , parent);
     }
+
+    // or
+    void findParent(Node* n,Node *p,unordered_map<Node *,Node*> &parent,Node *&trgt,int target){
+        if(n->data == target)
+            trgt = n;
+        
+        parent[n] = p;
+        
+        if(n->left)
+            findParent(n->left,n,parent,trgt,target);
+        if(n->right)
+            findParent(n->right,n,parent,trgt,target);
+    }
+    void dfs(Node *n,Node *c,unordered_map<Node *,Node*> &parent,int dist,int &maxi){
+        if(n == NULL)
+            return;
+        
+        if(dist > maxi)
+            maxi = dist;
+        
+        if(n->left!=c)
+            dfs(n->left,n,parent,dist+1,maxi);
+        if(n->right!=c)
+            dfs(n->right,n,parent,dist+1,maxi);
+        
+        if(parent[n]!=c)
+            dfs(parent[n],n,parent,dist+1,maxi);
+    }
+    int minTime(Node* root, int target) {
+        // code here
+        unordered_map<Node *,Node*> parent;
+        
+        Node *trgt = NULL;
+        findParent(root,NULL,parent,trgt,target);
+        
+        int maxi = 0;
+
+        dfs(trgt,NULL,parent,0,maxi);
+        
+        return maxi;
+    }
