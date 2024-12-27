@@ -1,6 +1,7 @@
 // Search in a rotated array.
 
 #include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
 
 int getPivot(int arr[],int size)
@@ -54,3 +55,37 @@ int main()
 
     return 0;
 }
+
+
+int search(vector<int>& nums, int k) {
+        int s = 0 , e = nums.size()-1;
+
+        while(s<=e){
+            int mid = (s+e)/2;
+
+            if(nums[mid] == k)
+                return mid;
+
+            //in case of duplicates
+            if(nums[s]==nums[mid] && nums[e]==nums[mid]){
+                s++;
+                e--;
+                continue;
+            }
+            
+            if(nums[s]<=nums[mid]){
+                if(nums[s]<=k && nums[mid]>=k)
+                    e = mid-1;
+                
+                else
+                    s = mid+1;
+            }
+            else{
+                if(nums[mid]<=k && nums[e]>=k)
+                    s = mid+1;
+                else
+                    e = mid-1;
+            }
+        }
+        return -1;
+    }
