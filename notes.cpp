@@ -22,3 +22,6 @@
 // catch(...){
 //     return -1;
 // }
+
+//Setting precision in cpp
+// ROUND(EXP,2) Eg-2
