@@ -60,6 +60,17 @@ Node* reverseList(Node* head){
     }
     return prev;
 }
+//recursive
+Node* reverseList(Node* head) {
+        if(head==NULL || head->next==NULL)
+            return head;
+        
+        Node *next = reverseList(head->next);
+        head->next->next = head;
+        head->next = NULL;
+
+        return next;
+}
 Node* reverseKGroup(Node* head, int k) {
     if(head == NULL || head->next == NULL)
         return head;
