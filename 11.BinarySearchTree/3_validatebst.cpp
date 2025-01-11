@@ -45,3 +45,19 @@ public:
         return isSort(v);
     }
 };
+
+
+bool check(TreeNode *root,long long mini,long long maxi){
+        if(root==NULL)
+            return true;
+        
+        if(root->val<maxi && root->val>mini)
+            return check(root->left,mini,root->val) && check(root->right,root->val,maxi);
+        
+        return false;
+    }
+    bool isValidBST(TreeNode* root) {
+        long long maxi = LLONG_MAX,mini=LLONG_MIN;
+
+        return check(root,mini,maxi);
+    }
