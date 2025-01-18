@@ -158,6 +158,30 @@ string preToInfix(string exp) {
         return st.top();
     }
 
+string postToPre(string exp) {
+        // Write your code here
+        stack<string> st;
+        
+        for(char ch:exp){
+            if(isOperator(ch)){
+                auto top1 = st.top();
+                st.pop();
+                
+                auto top2 = st.top();
+                st.pop();
+                
+                st.push(ch + top2 + top1);
+            }
+            else{
+                string conv = "";
+                conv.push_back(ch);
+                st.push(conv);
+            }
+        }
+        return st.top();
+    }
+
+
 int main(){
     cout<<infixToPrefix("(a+b)*c-d+f");
     return 0;
