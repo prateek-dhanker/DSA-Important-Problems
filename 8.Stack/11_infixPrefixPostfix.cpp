@@ -181,6 +181,28 @@ string postToPre(string exp) {
         return st.top();
     }
 
+string preToPost(string exp) {
+        stack<string> st;
+        
+        for(int i=exp.length()-1;i>=0;i--){
+            char ch = exp[i];
+            if(isOperator(ch)){
+                auto top1 = st.top();
+                st.pop();
+                
+                auto top2 = st.top();
+                st.pop();
+                
+                st.push(top1 + top2 + ch);
+            }
+            else{
+                string conv = "";
+                conv.push_back(ch);
+                st.push(conv);
+            }
+        }
+        return st.top();
+    }
 
 int main(){
     cout<<infixToPrefix("(a+b)*c-d+f");
