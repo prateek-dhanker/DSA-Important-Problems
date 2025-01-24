@@ -3,6 +3,8 @@ using namespace std;
 #include<unordered_map>
 #include<list>
 #include<queue>
+
+//undirected graphs
 bool bfsCycleDetect(int currnode,unordered_map<int , list<int> > &adjList ,unordered_map<int , bool> &visited ){
     unordered_map<int , int> parent;
     parent[currnode] = -1;
