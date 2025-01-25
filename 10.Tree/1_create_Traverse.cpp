@@ -81,6 +81,37 @@ vector<int> IterpostorderTraversal(Node* root) {
     return post;
 }
 
+//all in one
+void allOrder(Node* node) {
+    // code here
+    vector<int> pre,post,in;
+    
+    stack<pair<Node*,int>> st;
+    st.push({node,1});
+    
+    while(st.size()){
+        auto curr = st.top().first ;int num = st.top().second;
+        st.pop();
+        
+        if(num==1){
+            st.push({curr,2});
+            pre.push_back(curr->data);
+            
+            if(curr->left)
+                st.push({curr->left,1});
+        }
+        else if(num == 2){
+            st.push({curr,3});
+            in.push_back(curr->data);
+            
+            if(curr->right)
+                st.push({curr->right,1});
+        }
+        else
+            post.push_back(curr->data);
+    }
+}
+
 void levelOrderTraversal(Node * root){
     queue<Node *> q;
     q.push(root);
