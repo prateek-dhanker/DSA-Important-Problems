@@ -105,7 +105,7 @@ string cycleDetection (vector<vector<int>>& edges, int n, int m)
 
 
 
-// UNDIRECTED GRAPH //
+//DIRECTED GRAPH //
 
 
 
