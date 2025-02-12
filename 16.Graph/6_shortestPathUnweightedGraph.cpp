@@ -49,3 +49,29 @@ vector<int> shortestPath( vector<pair<int,int>> edges , int n , int m, int s , i
 	return path;
 
 }
+
+//better and easy
+vector<int> shortestPath(vector<vector<int>>& adj, int src) {
+	// code here
+	int n = adj.size();
+	
+	vector<int> dist(n,-1);
+	dist[src] = 0;
+	
+	queue<int> q;
+	q.push(src);
+	
+	while(q.size()){
+		int node = q.front();
+		q.pop();
+		
+		for(int nbr:adj[node]){
+			if(dist[nbr]==-1){
+				dist[nbr] = dist[node]+1;
+				q.push(nbr);
+			}
+		}
+	}
+	
+	return dist;
+}
