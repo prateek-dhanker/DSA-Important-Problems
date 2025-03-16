@@ -2,21 +2,28 @@
 using namespace std;
 
 
-vector<int> bellmonFord(int n, int m, int src, vector<vector<int>> &edges) {
-    // Write your code here.
-    vector<int> dist(n+1 , 1e8);
+vector<int> bellmanFord(int V, vector<vector<int>>& edges, int src) {
+    // Code here
+    vector<int> dist(V,1e8);
     dist[src] = 0;
-
-    for(int i=0; i<n-1; i++){
-        for(int j = 0;j<m;j++){
-            int u = edges[j][0] , v = edges[j][1] , w = edges[j][2];
-
-            if(dist[u] + w < dist[v])
+    
+    for(int i=0;i<V-1;i++){
+        for(auto edge : edges){
+            int u = edge[0], v = edge[1], w = edge[2];
+            
+            //relax-edge
+            if(dist[u]!=1e8 && dist[v]>dist[u]+w)
                 dist[v] = dist[u] + w;
         }
     }
-    // check for -ve edges if asked for   
-
-
+    
+    for(auto edge : edges){
+        int u = edge[0], v = edge[1], w = edge[2];
+        
+        //relax-edge
+        if(dist[u]!=1e8 && dist[v]>dist[u]+w)
+            return {-1};
+    }
+    
     return dist;
 }
