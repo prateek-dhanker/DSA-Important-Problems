@@ -3,6 +3,24 @@ using namespace std;
 
 class Solution {
 public:
+    void shortestDistance(vector<vector<int>>& mat) {
+        // Code here
+        int v = mat.size();
+        
+        for(int via=0;via<v;via++){
+            for(int i=0;i<v;i++){
+                for(int j=0;j<v;j++){
+                    if(mat[i][via]==-1 || mat[via][j]==-1)
+                        continue;
+                    if(mat[i][j]==-1)
+                        mat[i][j] = mat[i][via]+mat[via][j];
+                    else
+                        mat[i][j] = min(mat[i][j] , mat[i][via]+mat[via][j]);
+                }
+            }
+        }
+        
+    }
     vector<vector<int>> floydWarshall(int n,vector<vector<int>> &adjMatrix){
         vector<vector<vector<int>>> dp(n+1,vector<vector<int>>(n,vector<int>(n,INT_MAX)));
 
