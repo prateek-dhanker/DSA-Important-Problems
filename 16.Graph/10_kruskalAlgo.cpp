@@ -32,6 +32,21 @@ void unionSet(int u , int v , vector<int> &parent , vector<int> &rank){
     rank[u]++;
   }
 }
+void unionSetBySize(int u , int v , vector<int> &parent , vector<int> &size){
+  u = findParent(parent , u);
+  v = findParent(parent , v);
+
+  if(u == v)  return;
+
+  if(size[u] < size[v]){
+    parent[u] = v;
+    size[v] += size[u];
+  }
+  else {
+    parent[v] = u;
+    size[u] += size[v];
+  }
+}
 
 int minimumSpanningTree(vector<vector<int>>& edges, int n)
 {

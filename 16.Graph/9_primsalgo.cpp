@@ -49,3 +49,41 @@ vector<pair<pair<int, int>, int>> calculatePrimsMST(int n, int m, vector<pair<pa
     return ans;
 
 }
+
+// ElogE using min_heap
+int spanningTree(int V, vector<vector<int>> adj[]){
+    // code here ElogE
+    vector<bool> vis(V,false);
+    vector<vector<int>> mstEdges; //not requires if only need to find wt
+    
+    int mstWt = 0;
+    
+    priority_queue<vector<int>,vector<vector<int>>,greater<vector<int>>> pq;
+    // wt, node, parent   --parent not req if only need to find to wt
+    pq.push({0,0,-1}); 
+    
+    while(pq.size()){
+        auto top = pq.top();
+        pq.pop();
+    
+        int w = top[0], node=top[1], parent=top[2];
+        
+        if(vis[node])
+            continue;
+        
+        vis[node] = true;
+        mstWt += w;
+        
+        if(parent!=-1)
+            mstEdges.push_back({node,parent});
+        
+        for(auto nbr : adj[node]){
+            int nbrNode = nbr[0], edgeWt = nbr[1];
+            
+            if(!vis[nbrNode])
+                pq.push({edgeWt, nbrNode, node});
+        }
+    }
+    
+    return mstWt;
+}
